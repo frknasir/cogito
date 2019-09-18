@@ -11,6 +11,7 @@ try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     require('bootstrap');
+    window.Quill = require('quill');
 
     require('../../public/js/blk-design-system.min');
 } catch (e) {}

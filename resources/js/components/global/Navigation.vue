@@ -1,7 +1,7 @@
 <style>
 </style>
 <template>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="100">
         <div class="container">
             <div class="navbar-translate">
                 <router-link class="navbar-brand" to="/" rel="tooltip" title="" 
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <ul class="navbar-nav">
-                    <li class="nav-item p-0 d-none d-lg-block">
+                    <!--<li class="nav-item p-0 d-none d-lg-block">
                         <a class="nav-link" rel="tooltip" title="Follow me on Twitter" data-placement="bottom" 
                             :href="config.twitter_url" target="_blank">
                             <i class="fa fa-twitter"></i>
@@ -51,12 +51,18 @@
                             <i class="fa fa-instagram"></i>
                             <p class="d-lg-none d-xl-none">Instagram</p>
                         </a>
-                    </li>
+                    </li>-->
                     <li class="nav-item p-0">
                         <a class="nav-link" href="/blog">
-                            <i class="fa fa-address-book"></i>
+                            <i class="fa fa-rss"></i>
                             Blog
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link btn btn-default" to="/contact">
+                            <i class="fa fa-envelope"></i>
+                            Contact
+                        </router-link>
                     </li>
                     <li v-if="user.name" class="dropdown nav-item">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -65,38 +71,32 @@
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
                             <a class="dropdown-item" href="/blogadmin/posts">
-                                <i class="fa fa-user-circle-o"></i>
+                                <i class="fa fa-pencil-square-o"></i>
                                 Posts
                             </a>
                             <a class="dropdown-item" href="/blogadmin/tags">
-                                <i class="fa fa-user-circle-o"></i> Tags
+                                <i class="fa fa-tags"></i> Tags
                             </a>
                             <a class="dropdown-item" href="/blogadmin/topics">
-                                <i class="fa fa-user-circle-o"></i> Topics
+                                <i class="fa fa-object-group"></i> Topics
                             </a>
                             <a class="dropdown-item" href="/blogadmin">
-                                <i class="fa fa-user-circle-o"></i> Stats
+                                <i class="fa fa-area-chart"></i> Stats
                             </a>
                             <div class="dropdown-divider"></div>
                             <router-link to="/admin" class="dropdown-item">
-                                <i class="fa fa-user-circle-o"></i> Admin
+                                <i class="fa fa-lock"></i> Admin
                             </router-link>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
-                                <i class="fa fa-user-circle-o"></i> Logout
+                                <i class="fa fa-sign-out"></i> Logout
                             </a>
                             <form id="logout-form" :action="'/logout'" 
                                     method="POST" style="display: none;">
                                 <input type="hidden" name="_token" id="csrf-token" :value="csrf_token" />
                             </form>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link btn btn-default" to="/contact">
-                            <i class="fa fa-address-book"></i>
-                            Contact
-                        </router-link>
                     </li>
                 </ul>
             </div>
