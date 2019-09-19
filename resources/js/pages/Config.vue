@@ -39,24 +39,6 @@
                                 {{ validations.site_description.text }}
                             </small>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="site_logo">Site Logo</label><br><br>
-                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                <div class="fileinput-new thumbnail img-raised">
-                                    <img width="150" src="/img/boblogo.png" alt="...">
-                                </div>
-                                <div style="width: 150px;" class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-                                <div>
-                                    <span class="btn btn-raised btn-round btn-default btn-file">
-                                        <span class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input type="file" name="site_logo" id="site_logo" 
-                                            @change="processFile($event)">
-                                    </span>
-                                    <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                                </div>
-                            </div>
-                        </div>-->
                         <div class="form-group">
                             <label for="office_address">Office Address</label>
                             <textarea name="office_address" cols="30" rows="3" 
@@ -98,14 +80,39 @@
                             <input type="text" class="form-control" id="linkedin_url" 
                                 placeholder="LinkedIn Url" v-model="config.linkedin_url">
                         </div>
-
-                        <!--<div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox">
-                                <span class="form-check-sign"></span>
-                                Check me out
+						<div class="form-group">
+                            <label for="instagram_url">Github Url</label>
+                            <input type="text" class="form-control" id="github_url" 
+                                placeholder="Github Url" v-model="config.github_url">
+                        </div>
+						<div class="form-group">
+                            <label for="">
+                                Qoute of the Week
+                                <sup>
+                                    (required)
+                                </sup>
                             </label>
-                        </div>-->
+                            <div id="qotw_editor"></div>
+                            <small v-show="!validations.qotw.is_valid" class="form-text text-muted text-danger">
+                                {{ validations.qotw.text }}
+                            </small>
+                        </div>
+						<div class="form-group">
+                            <label for="site_logo">Site Logo</label><br><br>
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div ref="file_preview" class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                                <div>
+                                    <span class="btn btn-raised btn-round btn-default btn-file">
+                                        <span v-if="!logo" class="fileinput-new">Select image</span>
+                                        <span v-else class="fileinput-exists">Change</span>
+                                        <input accept="image/*" type="file" name="site_logo" id="site_logo" 
+                                            @change="processFile($event)">
+                                    </span>
+                                    <a @click="removeLogo()" v-if="logo" class="btn btn-danger btn-round fileinput-exists" 
+										data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" @click="update()" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -121,12 +128,15 @@
             this.$store.dispatch('loadConfig');
         },
         mounted() {
-            this.SiteDescriptionEditor = HELPERS.initQuillEditor('site_description');
+			this.SiteDescriptionEditor = HELPERS.initQuillEditor('site_description');
+			this.QOTWEditor = HELPERS.initQuillEditor('qotw_editor');
         },
         data() {
             return {
+				logo: null,
                 csrf_token: $('meta[name="csrf-token"]').attr('content'),
-                SiteDescriptionEditor: null,
+				SiteDescriptionEditor: null,
+				QOTWEditor: null,
                 validations: {
                     site_name: {
                         is_valid: true,
@@ -171,7 +181,15 @@
                     linkedin_url: {
                         is_valid: true,
                         text: ''
-                    },
+					},
+					github_url: {
+						is_valid: true,
+						text: ''
+					},
+					qotw: {
+						is_valid: true,
+						text: ''
+					}
                 }
             }
         },
@@ -199,7 +217,17 @@
             configLoadStatus: function(val) {
                 
                 if(val == 2) {
-                    this.SiteDescriptionEditor.root.innerHTML = this.config.site_description;
+					this.SiteDescriptionEditor.root.innerHTML = this.config.site_description;
+					this.QOTWEditor.root.innerHTML = this.config.qotw;
+					
+					if(this.config.site_logo_url) {
+						var img = document.createElement('img');
+						img.src = '/storage/' + this.config.site_logo_url;
+						img.alt = "upload logo image";
+						
+						$('.fileinput-preview').html(img);
+						this.logo = true;
+					}
                 }
             },
             updateConfigLoadStatus: function(val) {
@@ -220,8 +248,38 @@
         },
         methods: {
             processFile(event) {
-                this.config.site_logo = event.target.files[0];
-            },
+				this.logo = event.target.files[0];
+
+				if(this.logo.size > 2000000) {
+					this.$message({
+                        title: 'Warning',
+                        message: 'image file too large',
+                        type: 'warning'
+					});
+
+					$('.fileinput-preview').html('');
+					this.logo = null;
+					
+					return;
+				}
+
+				var reader = new FileReader();
+				
+				reader.onload = (e) => {
+					var img = document.createElement('img');
+					img.src = e.target.result;
+					img.alt = "upload logo image";
+					
+					$('.fileinput-preview').html(img);
+				}
+				
+				reader.readAsDataURL(this.logo);
+			},
+			removeLogo () {
+				this.config.site_logo_url = "";
+				this.logo = null;
+				$('.fileinput-preview').html('');
+			},
             validateFields(config) {
                 let valid = true;
                 let validations = this.validations;
@@ -248,7 +306,10 @@
                 return valid;
             },
             update() {
-                this.config.site_description = this.SiteDescriptionEditor.root.innerHTML;
+				this.config.site_description = this.SiteDescriptionEditor.root.innerHTML;
+				this.config.qotw = this.QOTWEditor.root.innerHTML;
+
+				this.config.site_logo = this.logo;
 
                 if(this.validateFields(this.config)) {
                     this.$store.dispatch('updateConfig', this.config);

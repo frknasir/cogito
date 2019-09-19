@@ -26,7 +26,9 @@ export default {
         twitter_url,
         facebook_url,
         instagram_url,
-        linkedin_url
+		linkedin_url,
+		github_url,
+		qotw
     ) {
         var formData = new FormData();
 
@@ -41,7 +43,9 @@ export default {
         formData.append('twitter_url', twitter_url);
         formData.append('facebook_url', facebook_url);
         formData.append('instagram_url', instagram_url);
-        formData.append('linkedin_url', linkedin_url);
+		formData.append('linkedin_url', linkedin_url);
+		formData.append('github_url', github_url);
+		formData.append('qotw', qotw);
         
         return axios.post(CONFIG.API_URL+"/config", formData, {
             'Content-Type': 'multipart/form-data'

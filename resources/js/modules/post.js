@@ -23,11 +23,12 @@ export const post = {
             ).then(function (response) {
                 commit('setPostsLoadStatus', 2);
                 commit('setPosts', response.data.data);
-                commit('setPostPagination', {
-                    meta: response.data.meta,
-                    links: response.data.links
-                });
-            }).catch(function () {
+                //commit('setPostPagination', {
+                //    meta: response.data.meta,
+                //    links: response.data.links
+                //});
+            }).catch(function (response) {
+				console.error(response)
                 commit('setPostsLoadStatus', 3);
                 commit('setPosts', []);
             });

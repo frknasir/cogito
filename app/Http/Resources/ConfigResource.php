@@ -27,7 +27,9 @@ class ConfigResource extends JsonResource
             'twitter_url' => $this->twitter_url,
             'facebook_url' => $this->facebook_url,
             'instagram_url' => $this->instagram_url,
-            'linkedin_url' => $this->linkedin_url,
+			'linkedin_url' => $this->linkedin_url,
+			'github_url' => $this->github_url,
+			'qotw' => $this->qotw,
             'created_at' => ($this->created_at == NULL) ? $this->created_at : date('d M Y - H:i:s', $this->created_at->timestamp),
             'updated_at' => ($this->updated_at == NULL) ? $this->updated_at : date('d M Y - H:i:s', $this->updated_at->timestamp)
         ];

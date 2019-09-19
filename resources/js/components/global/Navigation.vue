@@ -70,17 +70,17 @@
                             {{ user.name }}
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a class="dropdown-item" href="/blogadmin/posts">
+                            <a class="dropdown-item" href="/blog-admin/posts">
                                 <i class="fa fa-pencil-square-o"></i>
                                 Posts
                             </a>
-                            <a class="dropdown-item" href="/blogadmin/tags">
+                            <a class="dropdown-item" href="/blog-admin/tags">
                                 <i class="fa fa-tags"></i> Tags
                             </a>
-                            <a class="dropdown-item" href="/blogadmin/topics">
+                            <a class="dropdown-item" href="/blog-admin/topics">
                                 <i class="fa fa-object-group"></i> Topics
                             </a>
-                            <a class="dropdown-item" href="/blogadmin">
+                            <a class="dropdown-item" href="/blog-admin">
                                 <i class="fa fa-area-chart"></i> Stats
                             </a>
                             <div class="dropdown-divider"></div>

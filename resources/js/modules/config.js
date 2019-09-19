@@ -41,7 +41,9 @@ export const config = {
                 data.twitter_url,
                 data.facebook_url,
                 data.instagram_url,
-                data.linkedin_url
+				data.linkedin_url,
+				data.github_url,
+				data.qotw
             ).then(function(response) {
                 commit('setUpdateConfigLoadStatus', 2);
                 commit('setUpdateConfigResponse', response.data);

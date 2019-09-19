@@ -7,6 +7,7 @@ use App\Http\Requests\Config\UpdateRequest;
 use App\Http\Resources\ConfigResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
 {
@@ -51,8 +52,8 @@ class ConfigController extends Controller
         
             //delete the previous file
             if($config->site_logo_url != null) {
-                //Storage::delete('public/'.$post->thumbnail);
-                unlink(public_path("storage/".$config->site_logo_url));
+                Storage::delete($config->site_logo_url);
+            	//unlink(public_path("storage/".$config->site_logo_url));
             }
             
             $config->site_logo_url = "config/".$filenameToStore;
@@ -64,7 +65,9 @@ class ConfigController extends Controller
         $config->twitter_url = $request->input('twitter_url');
         $config->facebook_url = $request->input('facebook_url');
         $config->instagram_url = $request->input('instagram_url');
-        $config->linkedin_url = $request->input('linkedin_url');
+		$config->linkedin_url = $request->input('linkedin_url');
+		$config->github_url = $request->input('github_url');
+		$config->qotw = $request->input('qotw');
 
         if($config->save()) {
             $success = 1;

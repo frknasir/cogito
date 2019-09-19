@@ -17,7 +17,7 @@ class CreateConfigsTable extends Migration
             $table->increments('id');
             $table->string('site_name');
             $table->string('site_title');
-            $table->string('site_description')->nullable();
+            $table->text('site_description')->nullable();
             $table->string('site_logo_url')->nullable();
             $table->string('office_address')->nullable();
             $table->string('email');
@@ -25,7 +25,9 @@ class CreateConfigsTable extends Migration
             $table->string('twitter_url')->nullable();
             $table->string('facebook_url')->nullable();
             $table->string('instagram_url')->nullable();
-            $table->string('linkedin_url')->nullable();
+			$table->string('linkedin_url')->nullable();
+			$table->string('github_url')->nullable();
+			$table->text('qotw')->nullable();
             $table->timestamps();
             
             $table->engine = 'InnoDB';

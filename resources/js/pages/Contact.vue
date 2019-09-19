@@ -5,14 +5,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-auto mr-auto text-center">
-                    <h2 class="title">Get in touch with us</h2>
+                    <h2 class="title">Get in touch with me</h2>
                     <p></p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
                     <h3 class="title">
-                        <small>Find us on social networks</small>
+                        <small>Find me on social networks</small>
                     </h3>
                     <a :href="config.twitter_url" class="btn btn-just-icon btn-twitter">
                         <i class="fa fa-twitter"></i>
@@ -26,12 +26,15 @@
                     <a :href="config.linkedin_url" class="btn btn-just-icon btn-linkedin">
                         <i class="fa fa-linkedin"></i>
                     </a>
+					<a :href="config.github_url" class="btn btn-just-icon btn-github">
+                        <i class="fa fa-github"></i>
+                    </a>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
                     <h3 class="title">
-                        <small>Or drop us a note</small>
+                        <small>Or drop me a note</small>
                     </h3>
                     <form class="contact">
                         <div class="row">
