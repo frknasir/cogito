@@ -58,6 +58,12 @@
                             Blog
                         </a>
                     </li>
+					<li class="nav-item p-0">
+                        <router-link class="nav-link" to="/projects">
+                            <i class="fa fa-laptop"></i>
+                            Projects
+                        </router-link>
+                    </li>
                     <li class="nav-item">
                         <router-link class="nav-link btn btn-default" to="/contact">
                             <i class="fa fa-envelope"></i>

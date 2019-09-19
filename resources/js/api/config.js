@@ -46,6 +46,7 @@ export default {
 		formData.append('linkedin_url', linkedin_url);
 		formData.append('github_url', github_url);
 		formData.append('qotw', qotw);
+		formData.append('proficiency', proficiency);
         
         return axios.post(CONFIG.API_URL+"/config", formData, {
             'Content-Type': 'multipart/form-data'

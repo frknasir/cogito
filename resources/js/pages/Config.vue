@@ -1,121 +1,141 @@
 <style scoped>
 </style>
 <template>
-    <div class="section">
+    <div class="content">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 ml-auto mr-auto">
-                    <h1 class="title text-center">
-                        Site Configuration
-                    </h1>
-                    <hr>
-                    
-                    <form>
-                        <div class="form-group">
-                            <label for="site_name">Site Name</label>
-                            <input type="text" class="form-control" id="site_name" 
-                                aria-describedby="emailHelp" v-model="config.site_name" placeholder="Enter Site Name">
-                            <small v-show="!validations.site_name.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.site_name.text }}
-                            </small>                   
-                        </div>
-                        <div class="form-group">
-                            <label for="site_title">Site Title</label>
-                            <input type="text" class="form-control" id="site_title" 
-                                aria-describedby="emailHelp" v-model="config.site_title" placeholder="Enter Site Title">
-                            <small v-show="!validations.site_title.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.site_title.text }}
-                            </small>   
-                        </div>
-                        <div class="form-group">
-                            <label for="">
-                                Site Description
-                                <sup>
-                                    (required)
-                                </sup>
-                            </label>
-                            <div id="site_description"></div>
-                            <small v-show="!validations.site_description.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.site_description.text }}
-                            </small>
-                        </div>
-                        <div class="form-group">
-                            <label for="office_address">Office Address</label>
-                            <textarea name="office_address" cols="30" rows="3" 
-                                class="form-control" v-model="config.office_address" id="office_address"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" 
-                            id="email" aria-describedby="emailHelp" v-model="config.email" placeholder="Enter email">
-                            <small v-show="!validations.email.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.email.text }}
-                            </small>   
-                        </div>
-                        <div class="form-group">
-                            <label for="phone_number">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone_number" 
-                                placeholder="Phone Number" v-model="config.phone_number">
-                            <small v-show="!validations.phone_number.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.phone_number.text }}
-                            </small>   
-                        </div>
-                        <div class="form-group">
-                            <label for="twitter_url">Twitter Url</label>
-                            <input type="text" class="form-control" id="twitter_url" 
-                                placeholder="Twitter Url" v-model="config.twitter_url">
-                        </div>
-                        <div class="form-group">
-                            <label for="facebook_url">Facebook Url</label>
-                            <input type="text" class="form-control" id="facebook_url" 
-                                placeholder="Facebook Url" v-model="config.facebook_url">
-                        </div>
-                        <div class="form-group">
-                            <label for="instagram_url">Instagram Url</label>
-                            <input type="text" class="form-control" id="instagram_url" 
-                                placeholder="Instagram Url" v-model="config.instagram_url">
-                        </div>
-                        <div class="form-group">
-                            <label for="linkedin_url">LinkedIn Url</label>
-                            <input type="text" class="form-control" id="linkedin_url" 
-                                placeholder="LinkedIn Url" v-model="config.linkedin_url">
-                        </div>
+            <div class="card">
+				<div class="card-header">
+					<h1 class="title text-center">
+						Site Configuration
+					</h1>
+					<hr>
+				</div>
+				
+				<div class="card-body">
+					<form>
 						<div class="form-group">
-                            <label for="instagram_url">Github Url</label>
-                            <input type="text" class="form-control" id="github_url" 
-                                placeholder="Github Url" v-model="config.github_url">
-                        </div>
+							<label for="site_name">Site Name</label>
+							<input type="text" class="form-control" id="site_name" 
+								aria-describedby="emailHelp" v-model="config.site_name" placeholder="Enter Site Name">
+							<small v-show="!validations.site_name.is_valid" class="form-text text-muted text-danger">
+								{{ validations.site_name.text }}
+							</small>                   
+						</div>
 						<div class="form-group">
-                            <label for="">
-                                Qoute of the Week
-                                <sup>
-                                    (required)
-                                </sup>
-                            </label>
-                            <div id="qotw_editor"></div>
-                            <small v-show="!validations.qotw.is_valid" class="form-text text-muted text-danger">
-                                {{ validations.qotw.text }}
-                            </small>
-                        </div>
+							<label for="site_title">Site Title</label>
+							<input type="text" class="form-control" id="site_title" 
+								aria-describedby="emailHelp" v-model="config.site_title" placeholder="Enter Site Title">
+							<small v-show="!validations.site_title.is_valid" class="form-text text-muted text-danger">
+								{{ validations.site_title.text }}
+							</small>   
+						</div>
 						<div class="form-group">
-                            <label for="site_logo">Site Logo</label><br><br>
-                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                                <div ref="file_preview" class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
-                                <div>
-                                    <span class="btn btn-raised btn-round btn-default btn-file">
-                                        <span v-if="!logo" class="fileinput-new">Select image</span>
-                                        <span v-else class="fileinput-exists">Change</span>
-                                        <input accept="image/*" type="file" name="site_logo" id="site_logo" 
-                                            @change="processFile($event)">
-                                    </span>
-                                    <a @click="removeLogo()" v-if="logo" class="btn btn-danger btn-round fileinput-exists" 
+							<label for="">
+								Site Description
+								<sup>
+									(required)
+								</sup>
+							</label>
+							<div id="site_description"></div>
+							<small v-show="!validations.site_description.is_valid" class="form-text text-muted text-danger">
+								{{ validations.site_description.text }}
+							</small>
+						</div>
+						<div class="form-group">
+							<label for="office_address">Office Address</label>
+							<textarea name="office_address" cols="30" rows="3" 
+								class="form-control" v-model="config.office_address" id="office_address"></textarea>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="email">Email address</label>
+									<input type="email" class="form-control" 
+									id="email" aria-describedby="emailHelp" v-model="config.email" placeholder="Enter email">
+									<small v-show="!validations.email.is_valid" class="form-text text-muted text-danger">
+										{{ validations.email.text }}
+									</small>   
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="phone_number">Phone Number</label>
+									<input type="tel" class="form-control" id="phone_number" 
+										placeholder="Phone Number" v-model="config.phone_number">
+									<small v-show="!validations.phone_number.is_valid" class="form-text text-muted text-danger">
+										{{ validations.phone_number.text }}
+									</small>   
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="twitter_url">Twitter Url</label>
+									<input type="text" class="form-control" id="twitter_url" 
+										placeholder="Twitter Url" v-model="config.twitter_url">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="facebook_url">Facebook Url</label>
+									<input type="text" class="form-control" id="facebook_url" 
+										placeholder="Facebook Url" v-model="config.facebook_url">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="instagram_url">Instagram Url</label>
+									<input type="text" class="form-control" id="instagram_url" 
+										placeholder="Instagram Url" v-model="config.instagram_url">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="linkedin_url">LinkedIn Url</label>
+									<input type="text" class="form-control" id="linkedin_url" 
+										placeholder="LinkedIn Url" v-model="config.linkedin_url">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="instagram_url">Github Url</label>
+							<input type="text" class="form-control" id="github_url" 
+								placeholder="Github Url" v-model="config.github_url">
+						</div>
+						<div class="form-group">
+							<label for="">
+								Qoute of the Week
+								<sup>
+									(required)
+								</sup>
+							</label>
+							<div id="qotw_editor"></div>
+							<small v-show="!validations.qotw.is_valid" class="form-text text-muted text-danger">
+								{{ validations.qotw.text }}
+							</small>
+						</div>
+						<div class="form-group">
+							<label for="site_logo">Site Logo</label><br><br>
+							<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+								<div ref="file_preview" class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+								<div>
+									<span class="btn btn-raised btn-round btn-default btn-file">
+										<span v-if="!logo" class="fileinput-new">Select image</span>
+										<span v-else class="fileinput-exists">Change</span>
+										<input accept="image/*" type="file" name="site_logo" id="site_logo" 
+											@change="processFile($event)">
+									</span>
+									<a @click="removeLogo()" v-if="logo" class="btn btn-danger btn-round fileinput-exists" 
 										data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="button" @click="update()" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+								</div>
+							</div>
+						</div>
+						<button type="button" @click="update()" class="btn btn-primary">Submit</button>
+					</form>
+				</div>
             </div>
         </div>
     </div>
@@ -125,7 +145,7 @@
     export default {
         created() {
             this.$store.dispatch('getAuthUser');
-            this.$store.dispatch('loadConfig');
+			this.$store.dispatch('loadConfig');
         },
         mounted() {
 			this.SiteDescriptionEditor = HELPERS.initQuillEditor('site_description');
@@ -228,6 +248,8 @@
 						$('.fileinput-preview').html(img);
 						this.logo = true;
 					}
+
+					this.config.proficiency = JSON.parse(this.config.proficiency);
                 }
             },
             updateConfigLoadStatus: function(val) {
@@ -304,7 +326,13 @@
                     validations.phone_number.text = "contact phone can not be empty";
                 }
                 return valid;
-            },
+			},
+			addProficiency (type, key, value) {
+				this.config.proficiency[type[key]] = value;
+			},
+			removeProficiency (type, key) {
+				delete this.config.proficiency[type[key]];
+			},
             update() {
 				this.config.site_description = this.SiteDescriptionEditor.root.innerHTML;
 				this.config.qotw = this.QOTWEditor.root.innerHTML;

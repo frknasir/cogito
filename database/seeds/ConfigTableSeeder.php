@@ -23,7 +23,10 @@ class ConfigTableSeeder extends Seeder
         $config->twitter_url = "https://twitter.com/frknasir";
         $config->facebook_url = "https://facebook.com/frknasir";
         $config->instagram_url = "https://instagram.com/frknasir";
-        $config->linkedin_url = "https://linkedin.com/in/frknasir";
+		$config->linkedin_url = "https://linkedin.com/in/frknasir";
+		$config->github_url = "https://github.com/frknasir";
+		$config->qotw = "<blockquote>anything worth doing -- is worth doing well</blockquote>";
+		$config->proficiency = "{\"languages\":{},\"frameworks\":{},\"databases\":{},\"other\":{}}";
         $config->save();
     }
 }

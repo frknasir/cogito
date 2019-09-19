@@ -1,47 +1,4 @@
 <style scoped>
-    /*
-        Max width before this PARTICULAR table gets nasty. 
-        This query will take effect for any screen smaller 
-        than 760px and also iPads specifically.
-    */
-    @media
-    only screen 
-    and (max-width: 760px), (min-device-width: 768px) 
-    and (max-device-width: 1024px)  {
-		/* Force table to not be like tables anymore */
-		table, thead, tbody, th, td, tr {
-			display: block;
-		}
-		/* Hide table headers (but not display: none;, for accessibility) */
-		thead tr {
-			position: absolute;
-			top: -9999px;
-			left: -9999px;
-		}
-		td:before {
-			/* Now like a table header */
-			position: relative;
-			/* Top/left values mimic padding */
-			top: 0;
-			left: 6px;
-			width: 45%;
-			padding-right: 50px;
-			white-space: nowrap;
-		}
-		/*
-		Label the data
-        You could also use a data-* attribute and content 
-        for this. That way "bloats" the HTML, this way 
-        means you need to keep HTML and CSS in sync. 
-        Lea Verou has a clever way to handle with text-shadow.
-		*/
-		td:nth-of-type(1):before { content: "Id: "; }
-		td:nth-of-type(2):before { content: "Name: "; }
-		td:nth-of-type(3):before { content: "Email: "; }
-		td:nth-of-type(4):before { content: "Roles: "; }
-        td:nth-of-type(5):before { content: "Status: "; }
-        td:nth-of-type(6):before { content: "Actions: "; }
-	}
     #action-btn {
         position: relative;
         right: 20px;
@@ -56,14 +13,6 @@
 <template>
     <div class="content">
         <div class="container">
-
-            <div v-if="userLoadStatus == 2 && user != {}" id="action-btn">
-                <router-link class="btn btn-success btn-round btn-just-icon btn-lg" 
-                    :to="'/admin/users/add'">
-                    <i class="fa fa-plus"></i>
-                </router-link>
-            </div>
-
             
             <div class="card">
                 <div class="card-header card-header-icon card-header-success">
@@ -72,47 +21,42 @@
                     </div>
                     <div id="toolbar" class="mb-3">
                         <ul class="list-inline">
-                            <li style="color: black;" class="list-inline-item col-md-4 mb-3 mt-3 pull-left">
+                            <li class="list-inline-item col-md-4 mb-3 mt-3 pull-left">
                                 showing {{ userPagination.to }} of {{ userPagination.total }} users
                             </li>
                             <li class="list-inline-item col-md-4 mb-3 mt-3 pull-right">
-                                <form action="">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-search"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" class="form-control form-control-success" 
-                                            placeholder="Search users">
-                                    </div>
-                                </form>
+                                <router-link v-if="userLoadStatus == 2 && user != {}"
+									class="btn btn-success" 
+									:to="'/admin/users/add'">
+									<i class="fa fa-user-plus"></i>
+									New User
+								</router-link>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table role="table" id="users-table" 
-                        class="table table-success table-striped table-bordered">
-                        <thead role="group">
+                    <table role="table table-dark" id="users-table" 
+                        class="table">
+                        <thead>
                             <tr>
-                                <th role="columnheader">Id</th>
-                                <th role="columnheader">Name</th>
-                                <th role="columnheader">Email</th>
-                                <th role="columnheader">Roles</th>
-                                <th role="columnheader">Action</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Roles</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead> 
-                        <tbody role="rowgroup">
-                            <tr role="row" v-for="user in users" v-bind:key="user.id">
-                                <td role="cell">
+                        <tbody>
+                            <tr v-for="user in users" v-bind:key="user.id">
+                                <th scope="row">
                                     {{ "#" }}
-                                </td>
-                                <td role="cell">
+                                </th>
+                                <td>
                                     {{ user.name }}
                                 </td>
-                                <td role="cell">{{ user.email }}</td>
-                                <td role="cell">
+                                <td>{{ user.email }}</td>
+                                <td>
                                     {{ user.roles[0] }}
                                 </td>
                                 <td class="td-actions">

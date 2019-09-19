@@ -1,20 +1,57 @@
 <style scoped>
 </style>
 <template>
-    <el-container>
-        <el-aside>
-            <admin-navigation></admin-navigation>
-        </el-aside>
-        <el-main>
-            <router-view />
-        </el-main>
-    </el-container>
+	<div class="main">
+		<div class="section section-basic mt-5">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="list-group" id="list-tab" role="tablist">
+							<router-link class="list-group-item list-group-item-action"
+								:class="{ active: isDashboardActive }" 
+								id="list-home-list" 
+								data-toggle="list" 
+								to="/admin" role="tab" aria-controls="home">
+								Dashboard
+							</router-link>
+							<router-link class="list-group-item list-group-item-action"
+								:class="{ active: isManageUsersActive }" 
+								id="list-profile-list" 
+								data-toggle="list" 
+								to="/admin/users" 
+								role="tab" aria-controls="profile">
+								Manage Users
+							</router-link>
+							<router-link class="list-group-item list-group-item-action"
+								:class="{ active: isConfigActive }" 
+								id="list-messages-list" data-toggle="list" 
+								to="/admin/config" role="tab" 
+								aria-controls="messages">
+								Settings
+							</router-link>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<router-view />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 <script>
-    import AdminNavigation from '../components/global/AdminNavigation.vue';
     export default {
-        components: {
-            AdminNavigation
-        }
+		components: {},
+		computed: {
+			isDashboardActive () {
+				return this.$route.meta.mod === 'admin-dashboard' ? true : false
+			},
+			isManageUsersActive () {
+				return this.$route.meta.mod === 'manage-users' ? true : false
+			},
+			isConfigActive () {
+				return this.$route.meta.mod === 'config' ? true : false
+			}
+		}
     }
 </script>

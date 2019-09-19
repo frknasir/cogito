@@ -141,7 +141,7 @@
 						<div class="col-md-8 ml-auto mr-auto">
 							<h1 class="title text-left">
 								Open Source Projects
-								<router-link to="#" class="btn btn-default btn-sm">
+								<router-link to="/projects" class="btn btn-default btn-sm">
 									view all
 								</router-link>
 							</h1>

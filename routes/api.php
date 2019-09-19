@@ -40,6 +40,17 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
     /**
      * End Config Routes
      */
+
+	/**
+	 * Project Routes
+	 */
+	Route::group(['prefix' => 'project'], function () {
+		Route::post('/', 'ProjectController@store');
+		Route::put('/', 'ProjectController@update');
+	});
+	/**
+	 * EndProject Routes
+	 */
 });
 
 Route::group(['prefix'=> 'v1'], function() {
@@ -117,4 +128,15 @@ Route::group(['prefix'=> 'v1'], function() {
     /**
      * End Config Routes
      */
+
+	 /**
+	 * Project Routes
+	 */
+	Route::group(['prefix' => 'project'], function () {
+		Route::get('/', 'ProjectController@index');
+		Route::get('/{id}', 'ProjectController@show');
+	});
+	/**
+	 * EndProject Routes
+	 */
 });

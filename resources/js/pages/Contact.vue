@@ -14,19 +14,19 @@
                     <h3 class="title">
                         <small>Find me on social networks</small>
                     </h3>
-                    <a :href="config.twitter_url" class="btn btn-just-icon btn-twitter">
+                    <a target="_blank" :href="config.twitter_url" class="btn btn-just-icon btn-twitter">
                         <i class="fa fa-twitter"></i>
                     </a>
-                    <a :href="config.facebook_url" class="btn btn-just-icon btn-facebook">
+                    <a target="_blank" :href="config.facebook_url" class="btn btn-just-icon btn-facebook">
                         <i class="fa fa-facebook"></i>
                     </a>
-                    <a :href="config.instagram_url" class="btn btn-just-icon btn-instagram">
+                    <a target="_blank" :href="config.instagram_url" class="btn btn-just-icon btn-instagram">
                         <i class="fa fa-instagram"></i>
                     </a>
-                    <a :href="config.linkedin_url" class="btn btn-just-icon btn-linkedin">
+                    <a target="_blank" :href="config.linkedin_url" class="btn btn-just-icon btn-linkedin">
                         <i class="fa fa-linkedin"></i>
                     </a>
-					<a :href="config.github_url" class="btn btn-just-icon btn-github">
+					<a target="_blank" :href="config.github_url" class="btn btn-just-icon btn-github">
                         <i class="fa fa-github"></i>
                     </a>
                 </div>

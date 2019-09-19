@@ -56,6 +56,40 @@ const router = new VueRouter({
                 footer: Vue.component('FooterComponent', FooterComponent)
             }
         },
+		{
+			path: '/projects',
+			components: {
+				default: Vue.component('ProjectsComponent', require('./pages/Project.vue').default),
+				header: Vue.component('HeaderComponent', HeaderComponent),
+				footer: Vue.component('FooterComponent', FooterComponent)
+			},
+			children: [
+				{
+					path: '',
+					name: 'Projects',
+					component: Vue.component(
+						'ProjectUsers',
+						require('./components/projects/Browse.vue').default
+					)
+				},
+				{
+					path: 'edit/:projectId',
+					name: 'Edit Project',
+					component: Vue.component(
+						'EditProject',
+						require('./components/projects/Update.vue').default
+					)
+				},
+				{
+					path: 'add',
+					name: 'Add Project',
+					component: Vue.component(
+						'AddProject',
+						require('./components/projects/Add.vue').default
+					)
+				}
+			]
+		},
         {
             path: '/contact',
             name: 'Contact',
@@ -71,17 +105,21 @@ const router = new VueRouter({
                 default: Vue.component('AdminComponent', require('./pages/Admin.vue').default),
                 header: Vue.component('HeaderComponent', HeaderComponent),
                 footer: Vue.component('FooterComponent', FooterComponent)
-            },
+			},
+			beforeEnter: requireAuth,
             children: [
                 {
                     path: '',
-                    redirect: '/admin/users',
+                    //redirect: '/admin/users',
                     name: 'Admin Dashboard',
                     components: {
                         default: Vue.component('UsersComponent', require('./pages/Dashboard.vue').default),
                         header: Vue.component('HeaderComponent', HeaderComponent),
                         footer: Vue.component('FooterComponent', FooterComponent)
-                    }
+					},
+					meta: {
+						mod: 'admin-dashboard'
+					}
                 },
                 {
                     path: 'users',
@@ -89,7 +127,10 @@ const router = new VueRouter({
                         default: Vue.component('UsersComponent', require('./pages/Users.vue').default),
                         header: Vue.component('HeaderComponent', HeaderComponent),
                         footer: Vue.component('FooterComponent', FooterComponent)
-                    },
+					},
+					meta: {
+						mod: 'manage-users'
+					},
                     children: [
                         {
                             path: '',
@@ -97,12 +138,10 @@ const router = new VueRouter({
                             component: Vue.component(
                                 'BrowseUsers',
                                 require('./components/users/BrowseUsers.vue').default
-                            ),
-                            beforeEnter: requireAuth,
-                            meta: {
-                                permitted: ['Super-admin'],
-                                permittedToMakeChanges: ['Super-admin']
-                            }
+							),
+							meta: {
+								mod: 'manage-users'
+							}
                         },
                         {
                             path: 'edit/:userId',
@@ -111,10 +150,9 @@ const router = new VueRouter({
                                 'EditUser',
                                 require('./components/users/EditUser.vue').default
                             ),
-                            beforeEnter: requireAuth,
-                            meta: {
-                                permitted: ['Super-admin']
-                            }
+							meta: {
+								mod: 'manage-users'
+							}
                         },
                         {
                             path: 'add',
@@ -123,13 +161,12 @@ const router = new VueRouter({
                                 'AddUser',
                                 require('./components/users/AddUser.vue').default
                             ),
-                            beforeEnter: requireAuth,
-                            meta: {
-                                permitted: ['Super-admin']
-                            }
+							meta: {
+								mod: 'manage-users'
+							}
                         }
                     ]
-                },
+				},
                 {
                     path: 'config',
                     name: 'Config',
@@ -137,7 +174,10 @@ const router = new VueRouter({
                         default: Vue.component('ConfigComponent', require('./pages/Config.vue').default),
                         header: Vue.component('HeaderComponent', HeaderComponent),
                         footer: Vue.component('FooterComponent', FooterComponent)
-                    }
+					},
+					meta: {
+						mod: 'config'
+					}
                 }
             ]
         },

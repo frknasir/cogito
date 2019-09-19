@@ -35,6 +35,7 @@ import { misc } from './modules/misc';
 import { config } from './modules/config';
 import { newsletter } from './modules/newsletter';
 import { post } from './modules/post';
+import { project } from './modules/project';
 
 /*
 Exports our data store.
@@ -45,7 +46,8 @@ export default new Vuex.Store({
         misc,
         config,
         newsletter,
-        post
+		post,
+		project
     },
     plugins: [
         createPersistedState()
