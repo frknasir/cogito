@@ -36,6 +36,8 @@ import { config } from './modules/config';
 import { newsletter } from './modules/newsletter';
 import { post } from './modules/post';
 import { project } from './modules/project';
+import { proficiencyType } from './modules/proficiencyType';
+import { proficiency } from './modules/proficiency';
 
 /*
 Exports our data store.
@@ -47,7 +49,9 @@ export default new Vuex.Store({
         config,
         newsletter,
 		post,
-		project
+		project,
+		proficiencyType,
+		proficiency
     },
     plugins: [
         createPersistedState()

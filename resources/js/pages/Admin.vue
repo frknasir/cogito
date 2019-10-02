@@ -15,6 +15,14 @@
 								Dashboard
 							</router-link>
 							<router-link class="list-group-item list-group-item-action"
+								:class="{ active: isProficiencyActive }" 
+								id="list-proficiency-list" 
+								data-toggle="list" 
+								to="/admin/proficiencies" 
+								role="tab" aria-controls="proficiency">
+								Proficiencies
+							</router-link>
+							<router-link class="list-group-item list-group-item-action"
 								:class="{ active: isManageUsersActive }" 
 								id="list-profile-list" 
 								data-toggle="list" 
@@ -51,6 +59,9 @@
 			},
 			isConfigActive () {
 				return this.$route.meta.mod === 'config' ? true : false
+			},
+			isProficiencyActive () {
+				return this.$route.meta.mod === 'proficiencies' ? true : false
 			}
 		}
     }

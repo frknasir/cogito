@@ -101,7 +101,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="instagram_url">Github Url</label>
+							<label for="github_url">Github Url</label>
 							<input type="text" class="form-control" id="github_url" 
 								placeholder="Github Url" v-model="config.github_url">
 						</div>
@@ -210,7 +210,11 @@
 						is_valid: true,
 						text: ''
 					}
-                }
+				},
+				editing_languages: false,
+				editing_frameworks: false,
+				editing_databases: false,
+				editing_others: false
             }
         },
         computed: {
@@ -248,8 +252,6 @@
 						$('.fileinput-preview').html(img);
 						this.logo = true;
 					}
-
-					this.config.proficiency = JSON.parse(this.config.proficiency);
                 }
             },
             updateConfigLoadStatus: function(val) {
@@ -326,12 +328,6 @@
                     validations.phone_number.text = "contact phone can not be empty";
                 }
                 return valid;
-			},
-			addProficiency (type, key, value) {
-				this.config.proficiency[type[key]] = value;
-			},
-			removeProficiency (type, key) {
-				delete this.config.proficiency[type[key]];
 			},
             update() {
 				this.config.site_description = this.SiteDescriptionEditor.root.innerHTML;

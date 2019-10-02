@@ -51,6 +51,18 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 	/**
 	 * EndProject Routes
 	 */
+
+	/**
+	 * Proficiency Routes
+	 */
+	Route::group(['prefix' => 'proficiency'], function () {
+		Route::post('/', 'ProficiencyController@store');
+		Route::put('/', 'ProficiencyController@update');
+		Route::delete('/', 'ProficiencyController@destroy');
+	});
+	/**
+	 * End Proficiency Routes
+	 */
 });
 
 Route::group(['prefix'=> 'v1'], function() {
@@ -128,6 +140,27 @@ Route::group(['prefix'=> 'v1'], function() {
     /**
      * End Config Routes
      */
+
+	/**
+	 * ProficiencyType Routes
+	 */
+	Route::group(['prefix' => 'proficiencyType'], function () {
+		Route::get('/', 'ProficiencyTypeController@index');
+	});
+	/**
+	 * End ProficiencyType Routes
+	 */
+
+	/**
+	 * Proficiency Routes
+	 */
+	Route::group(['prefix' => 'proficiency'], function () {
+		Route::get('/', 'ProficiencyController@index');
+		Route::get('/{id}', 'ProficiencyController@show');
+	});
+	/**
+	 * End Proficiency Routes
+	 */
 
 	 /**
 	 * Project Routes

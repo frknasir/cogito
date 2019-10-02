@@ -28,7 +28,6 @@ class CreateConfigsTable extends Migration
 			$table->string('linkedin_url')->nullable();
 			$table->string('github_url')->nullable();
 			$table->text('qotw')->nullable();
-			$table->text('proficiency');
             $table->timestamps();
             
             $table->engine = 'InnoDB';

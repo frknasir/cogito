@@ -156,12 +156,6 @@
                 let vm = this;
                 if(vm.addUserLoadStatus == 3 && vm.addUserResult.success == 0) {
                     vm.show_form = true;
-                    vm.HF.showNotification(
-                        'top', 
-                        'center', 
-                        vm.addUserResult.message, 
-                        'danger'
-                    );
                 } else if(vm.addUserLoadStatus == 2 && vm.addUserResult.success == 1) {
                     vm.show_form = false;
                     vm.clearUserForm();

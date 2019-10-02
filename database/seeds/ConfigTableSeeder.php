@@ -26,7 +26,6 @@ class ConfigTableSeeder extends Seeder
 		$config->linkedin_url = "https://linkedin.com/in/frknasir";
 		$config->github_url = "https://github.com/frknasir";
 		$config->qotw = "<blockquote>anything worth doing -- is worth doing well</blockquote>";
-		$config->proficiency = "{\"languages\":{},\"frameworks\":{},\"databases\":{},\"other\":{}}";
         $config->save();
     }
 }

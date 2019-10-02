@@ -68,7 +68,6 @@ class ConfigController extends Controller
 		$config->linkedin_url = $request->input('linkedin_url');
 		$config->github_url = $request->input('github_url');
 		$config->qotw = $request->input('qotw');
-		$config->proficiency = $request->input('proficiency');
 
         if($config->save()) {
             $success = 1;

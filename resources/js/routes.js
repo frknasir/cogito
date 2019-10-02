@@ -120,7 +120,53 @@ const router = new VueRouter({
 					meta: {
 						mod: 'admin-dashboard'
 					}
-                },
+				},
+				{
+                    path: 'proficiencies',
+                    components: {
+                        default: Vue.component('UsersComponent', require('./pages/Proficiency.vue').default),
+                        header: Vue.component('HeaderComponent', HeaderComponent),
+                        footer: Vue.component('FooterComponent', FooterComponent)
+					},
+					meta: {
+						mod: 'proficiencies'
+					},
+                    children: [
+                        {
+                            path: '',
+                            name: 'Proficiencies',
+                            component: Vue.component(
+                                'BrowseProficiencies',
+                                require('./components/proficiencies/Browse.vue').default
+							),
+							meta: {
+								mod: 'proficiencies'
+							}
+                        },
+                        {
+                            path: 'edit/:proficiencyId',
+                            name: 'Edit Proficiency',
+                            component: Vue.component(
+                                'EditProficiency',
+                                require('./components/proficiencies/Update.vue').default
+                            ),
+							meta: {
+								mod: 'proficiencies'
+							}
+                        },
+                        {
+                            path: 'add',
+                            name: 'Add Proficiency',
+                            component: Vue.component(
+                                'AddProficiency',
+                                require('./components/proficiencies/Add.vue').default
+                            ),
+							meta: {
+								mod: 'proficiencies'
+							}
+                        }
+                    ]
+				},
                 {
                     path: 'users',
                     components: {

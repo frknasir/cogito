@@ -56,7 +56,7 @@
                                         {{ validations.role_id.text }}
                                     </small>
                                 </div>
-                                <button v-loading="updateUserLoadStatus == 1" @click="editUser(usr)" user="button" 
+                                <button @click="editUser(usr)" user="button" 
                                     class="btn btn-success">
                                     Submit
                                 </button>
@@ -102,8 +102,7 @@
                                         {{ validations.cpassword.text }}
                                     </small>
                                 </div>
-                                <button v-loading="changeUserPasswordLoadStatus == 1" 
-                                    @click="changeUserPassword(changePassword)" user="button" 
+                                <button @click="changeUserPassword(changePassword)" user="button" 
                                     class="btn btn-success">
                                     Submit
                                 </button>
@@ -116,7 +115,8 @@
     </div>
 </template>
 <script>
-    import { HELPERS } from '../../helpers.js';
+	import { HELPERS } from '../../helpers.js';
+	import { Message } from 'element-ui';
 
     export default {
         components: {
@@ -200,14 +200,14 @@
                 let vm = this;
                 if(vm.updateUserLoadStatus == 3 && vm.updateUserResult.success == 0) {
                     vm.show_form = true;
-                    this.$message({
+                    Message({
                         title: 'Danger',
                         message: 'try again!',
                         type: 'danger'
                     });
                 } else if(vm.updateUserLoadStatus == 2 && vm.updateUserResult.success == 1) {
                     vm.show_form = true;
-                    this.$message({
+                    Message({
                         title: 'Success',
                         message: 'user updated successfully',
                         type: 'success'
@@ -218,7 +218,7 @@
                 let vm = this;
                 if(vm.changeUserPasswordResult === 3 && vm.changeUserPasswordResult.success == 0) {
                     vm.show_form = true;
-                    this.$message({
+                    Message({
                         title: 'Danger',
                         message: vm.changeUserPasswordResult.message,
                         type: 'danger'
@@ -228,7 +228,7 @@
                     vm.cpassword = '';
                     
                     vm.show_form = true;
-                    this.$message({
+                    Message({
                         title: 'Success',
                         message: vm.changeUserPasswordResult.message,
                         type: 'success'
