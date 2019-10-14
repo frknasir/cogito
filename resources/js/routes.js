@@ -167,6 +167,52 @@ const router = new VueRouter({
                         }
                     ]
 				},
+				{
+                    path: 'projects',
+                    components: {
+                        default: Vue.component('UsersComponent', require('./pages/Project.vue').default),
+                        header: Vue.component('HeaderComponent', HeaderComponent),
+                        footer: Vue.component('FooterComponent', FooterComponent)
+					},
+					meta: {
+						mod: 'projects'
+					},
+                    children: [
+                        {
+                            path: '',
+                            name: 'Projects',
+                            component: Vue.component(
+                                'BrowseProjects',
+                                require('./components/projects/Browse.vue').default
+							),
+							meta: {
+								mod: 'projects'
+							}
+                        },
+                        {
+                            path: 'edit/:projectId',
+                            name: 'Edit Project',
+                            component: Vue.component(
+                                'EditProject',
+                                require('./components/projects/Update.vue').default
+                            ),
+							meta: {
+								mod: 'projects'
+							}
+                        },
+                        {
+                            path: 'add',
+                            name: 'Add Project',
+                            component: Vue.component(
+                                'AddProject',
+                                require('./components/projects/Add.vue').default
+                            ),
+							meta: {
+								mod: 'projects'
+							}
+                        }
+                    ]
+				},
                 {
                     path: 'users',
                     components: {

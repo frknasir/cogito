@@ -31,6 +31,10 @@ router.afterEach(writeHistory);
 
 router.afterEach(writeHistory);
 
+VueChartkick.options = {
+	colors: ["#b00", "#666"]
+}
+
 //https://www.npmjs.com/package/vue-chartkick
 Vue.use(VueChartkick, {adapter: Highcharts});
 

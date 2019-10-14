@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header card-header-icon card-header-success">
                     <div class="card-icon">
-                        <i class="fa fa-proficiencies"></i>
+                        <i class="fa fa-certificate"></i>
                     </div>
                     <div id="toolbar" class="mb-3">
                         <ul class="list-inline">

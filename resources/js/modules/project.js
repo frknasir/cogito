@@ -10,7 +10,8 @@ import ProjectAPI from '../api/project.js';
 export const project = { 
     state: {
         projects: [],
-        projectsLoadStatus: 0,
+		projectsLoadStatus: 0,
+		projPagination: {},
         project: {},
         projectLoadStatus: 0,
         addProjectLoadStatus: 0,
@@ -21,21 +22,26 @@ export const project = {
         deleteProjectResult: {}
     },
     actions: {
-        getProjects({commit}) {
+        loadProjects({commit}, data) {
             commit('setProjectsLoadStatus', 1);
 
-            ProjectAPI.getProjects()
-                .then(function(response) {
-                    commit('setProjectsLoadStatus', 2);
-                    commit('setProjects', response.data.data);
-                })
-                .catch(function() {
-                    commit('setProjectsLoadStatus', 3);
-                    commit('setProjects', []);
-                });
+            ProjectAPI.getProjects(
+				data.url
+			).then(function(response) {
+				commit('setProjectsLoadStatus', 2);
+				commit('setProjects', response.data.data);
+				commit('setProjPagination', {
+					meta: response.data.meta,
+					links: response.data.links
+				});
+			})
+			.catch(function() {
+				commit('setProjectsLoadStatus', 3);
+				commit('setProjects', []);
+			});
         },
 
-        getProject({commit}, data) {
+        loadProject({commit}, data) {
             commit('setProjectLoadStatus', 1);
 
             ProjectAPI.getProject(
@@ -114,6 +120,22 @@ export const project = {
 
         setProjects(state, electionTypes) {
             state.projects = electionTypes;
+		},
+		
+		setProjPagination(state, data) {
+            let meta = data.meta;
+            let links = data.links;
+
+            let pagination = {
+                current_page: meta.current_page,
+                last_page: meta.last_page,
+                to: meta.to,
+                total: meta.total,
+                next_page_url: links.next,
+                prev_page_url: links.prev
+            };
+
+            state.projPagination = pagination;
         },
 
         setProject(state, project) {
@@ -155,6 +177,10 @@ export const project = {
 
         getProjects(state) {
             return state.projects;
+		},
+		
+		getProjPagination(state) {
+            return state.projPagination;
         },
 
         getProject(state) {

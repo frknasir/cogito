@@ -7,11 +7,9 @@ export default {
     /*
     GET /api/v1/projects
     */
-    getProjects: function() {
-        return axios.get( 
-            CONFIG.API_URL + 
-            '/project'  
-        );
+    getProjects: function(url = null) {
+		url = url || CONFIG.API_URL + '/project';
+        return axios.get(url);
     },
 
     /**

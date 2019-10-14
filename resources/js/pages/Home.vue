@@ -63,23 +63,19 @@
 							</div>
 							<div class="card-body">
 								<ul class="nav nav-tabs nav-tabs-primary justify-content-center">
-									<li class="nav-item">
-										<a class="nav-link active" data-toggle="tab" href="#linka">Languages</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#linkb">Frameworks</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#linkc">Databases</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" data-toggle="tab" href="#linkc">Other</a>
+									<li v-for="(proficiencyType, index) in proficiencyTypes" :key="index" 
+										class="nav-item">
+										<a class="nav-link" :class="{active: index === 0}" data-toggle="tab" :href="'#id' + proficiencyType.id">
+											{{ proficiencyType.name }}
+										</a>
 									</li>
 								</ul>
 								<div class="tab-content tab-subcategories">
-									<div class="tab-pane active" id="linka"></div>
-									<div class="tab-pane" id="linkb"></div>
-									<div class="tab-pane" id="linkc"></div>
+									<div v-for="(proficiencyType, index) in proficiencyTypes" :key="index" 
+										class="tab-pane" :class="{active: index === 0}" :id="'id' + proficiencyType.id">
+										<bar-chart :min="0" :max="100"
+											:data="proficiencyType.proficiencies.map((proficiency) => { let r = []; r.push(proficiency.title, parseInt(proficiency.value));  return r; })"></bar-chart>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -231,6 +227,7 @@ export default {
 			limit: 3,
 			url: null
 		});
+		this.$store.dispatch("loadProficiencyTypes");
 	},
 	computed: {
 		config() {
@@ -248,21 +245,6 @@ export default {
 		memberPagination() {
 			return this.$store.getters.getMemberPagination;
 		},
-		subscribeNewsletterLoadStatus() {
-			return this.$store.getters.getSubscribeNewsletterLoadStatus;
-		},
-		subscribeNewsletterResponse() {
-			return this.$store.getters.getSubscribeNewsletterResult;
-		},
-		unsubscribeNewsletterLoadStatus() {
-			return this.$store.getters.getUnsubscribeNewsletterLoadStatus;
-		},
-		unsubscribeNewsletterResponse() {
-			return this.$store.getters.getUnsubscribeNewsletterResult;
-		},
-		newsletter() {
-			return this.$store.getters.getNewsletter;
-		},
 		posts() {
 			return this.$store.getters.getPosts;
 		},
@@ -278,61 +260,21 @@ export default {
 			});
 
 			return tob;
+		},
+		proficiencyTypes () {
+			return this.$store.getters.getProficiencyTypes;
+		},
+		proficiencyTypesLoadStatus () {
+			return this.$store.getters.getProficiencyTypesLoadStatus;
 		}
 	},
 	methods: {
-		loadNewsletter	() {
-			this.$store.dispatch("getNewsletter");
-		},
-		subscribeNewsletter	(data) {
-			if (1) {
-				this.$store.dispatch("subscribeNewsletter", data);
-				console.log("subscribing: " + data);
-			}
-		},
-		unsubscribeNewsletter (data) {
-			if (1) {
-				this.$store.dispatch("unsubscribeNewsletter", data);
-				console.log("unsubscribing: " + data);
-			}
-		}
+		
 	},
 	watch: {
 		postsLoadStatus: function (val) {
 			if (val == 2) {
 				this.featured_posts = this.posts;
-			}
-		},
-		subscribeNewsletterLoadStatus: function (val) {
-			if (val == 2 && this.subscribeNewsletterResponse.success == 1) {
-				this.$message({
-				title: "Success",
-				message: this.newsletterEmail + " subscribed Successfully",
-				type: "success"
-				});
-
-				this.newsletterEmail = "";
-			} else if (val == 3 || this.subscribeNewsletterResponse.success == 0) {
-				this.$message({
-				title: "Warning",
-				message: "Something went wrong. Try again!",
-				type: "warning"
-				});
-			}
-		},
-		unsubscribeNewsletterLoadStatus: function(val) {
-			if (val == 2 && this.unsubscribeNewsletterResponse.success == 1) {
-				this.$message({
-					title: "Success",
-					message: this.newsletterEmail + " unsubscribed Successfully",
-					type: "success"
-				});
-			} else if (val == 3 || this.unsubscribeNewsletterResponse.success == 0) {
-				this.$message({
-					title: "Warning",
-					message: "Something went wrong. Try again!",
-					type: "warning"
-				});
 			}
 		}
 	}

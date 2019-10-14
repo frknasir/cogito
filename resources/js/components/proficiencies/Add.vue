@@ -52,7 +52,7 @@
                                             <i class="fa fa-asterisk small" style="color:red"></i>
                                         </sup>
                                     </label>
-                                    <input type="number" class="form-control" v-model="proficiency.value" />
+                                    <input type="number" min="0" max="100" class="form-control" v-model="proficiency.value" />
                                     <small v-show="!validations.value.is_valid" class="form-text text-muted text-danger">
                                         {{ validations.value.text }}
                                     </small>
@@ -164,7 +164,13 @@
                     valid = false;
                     validations.value.is_valid = false;
                     validations.value.text = "value can not be empty";
-                }
+				}
+				
+				if(proficiency.value < 0 || proficiency.value > 100) {
+					valid = false;
+					validations.value.is_valid = false;
+					validations.value.text = "value must be within 0 and 100 inclusively";
+				}
 
                 return valid;
             },

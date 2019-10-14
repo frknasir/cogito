@@ -9,86 +9,58 @@
                     <div class="card">
                         <div class="card-header card-header-text card-header-success">
                             <div class="card-text">
-                                New User
+                                New Project
                             </div>
                         </div>
                         <div class="card-body">
-                            <form v-show="show_form">
+                            <form>
                                 <div class="form-group">
                                     <label for="">
-                                        name
+                                        title
                                         <sup>
                                             <i class="fa fa-asterisk small" style="color:red"></i>
                                         </sup>
                                     </label>
-                                    <input type="text" class="form-control" v-model="user.name" />
-                                    <small v-show="!validations.name.is_valid" class="form-text text-muted text-danger">
-                                        {{ validations.name.text }}
+                                    <input type="text" class="form-control" v-model="project.title" />
+                                    <small v-show="!validations.title.is_valid" class="form-text text-muted text-danger">
+                                        {{ validations.title.text }}
                                     </small>
                                 </div>
                                 <div class="form-group">
                                     <label for="">
-                                        email
+                                        description
                                         <sup>
                                             <i class="fa fa-asterisk small" style="color:red"></i>
                                         </sup>
                                     </label>
-                                    <input type="email" class="form-control" v-model="user.email" />
-                                    <small v-show="!validations.email.is_valid" class="form-text text-muted text-danger">
-                                        {{ validations.email.text }}
+									<textarea class="form-control" v-model="project.description" cols="30" rows="10"></textarea>
+                                    <small v-show="!validations.description.is_valid" class="form-text text-muted text-danger">
+                                        {{ validations.description.text }}
                                     </small>
                                 </div>
-                                <div class="form-group">
+								<div class="form-group">
                                     <label for="">
-                                        password
-                                        <sup>
-                                            <i class="fa fa-asterisk small" style="color:red"></i>
-                                        </sup>
+                                        Source Code(link)
                                     </label>
-                                    <input type="text" class="form-control" v-model="user.password" />
-                                    <small v-show="!validations.password.is_valid" class="form-text text-muted text-danger">
-                                        {{ validations.password.text }}
+                                    <input type="text" class="form-control" v-model="project.source_code" />
+                                    <small v-show="!validations.source_code.is_valid" class="form-text text-muted text-danger">
+                                        {{ validations.source_code.text }}
                                     </small>
                                 </div>
-                                <div class="form-group">
+								<div class="form-group">
                                     <label for="">
-                                        password
-                                        <sup>
-                                            <i class="fa fa-asterisk small" style="color:red"></i>
-                                        </sup>
+                                       Preview Link
                                     </label>
-                                    <input type="text" class="form-control" v-model="cpassword" />
-                                    <small v-show="!validations.cpassword.is_valid" class="form-text text-muted text-danger">
-                                        {{ validations.cpassword.text }}
+                                    <input type="text" class="form-control" v-model="project.live_url" />
+                                    <small v-show="!validations.live_url.is_valid" class="form-text text-muted text-danger">
+                                        {{ validations.live_url.text }}
                                     </small>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">
-                                        role
-                                        <sup>
-                                            <i class="fa fa-asterisk small" style="color:red"></i>
-                                        </sup>
-                                    </label>
-                                    <select class="form-control" v-model="user.role_id">
-                                        <option value="1">
-                                            Admin
-                                        </option>
-                                    </select>
-                                    <small v-show="!validations.role_id.is_valid" class="form-text text-muted text-danger">
-                                        {{ validations.role_id.text }}
-                                    </small>
-                                </div>
-                                <button v-if="addUserLoadStatus != 1" @click="addUser(user)" user="button" 
+                                <button type="button" v-if="addProjectLoadStatus != 1" @click="addProject(project)" project="button" 
                                     class="btn btn-success">
                                     Submit
                                 </button>
                             </form>
-                            <div v-show="!show_form" class="alert alert-success" role="alert">
-                                {{ addUserResult.message }}
-                                <a @click="addAnother()" class="alert-link">
-                                    &nbsp;Add Another User
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,40 +69,33 @@
     </div>
 </template>
 <script>
-    import { HELPERS } from '../../helpers.js';
+	import { Message } from 'element-ui';
 
     export default {
         components: {
         },
         data() {
             return {
-                user: {
-                    name: '',
-                    email: '',
-                    password: '',
-                    role_id: 1
+                project: {
+                    title: '',
+					description: '',
+					source_code: '',
+					live_url: ''
                 },
-                cpassword: '',
-                HF: HELPERS,
-                show_form: true,
                 validations: {
-                    name: {
+                    source_code: {
+                        is_valid: true,
+                        text: ''
+					},
+					live_url: {
                         is_valid: true,
                         text: ''
                     },
-                    email: {
+                    title: {
                         is_valid: true,
                         text: ''
                     },
-                    password: {
-                        is_valid: true,
-                        text: ''
-                    },
-                    cpassword: {
-                        is_valid: true,
-                        text: ''
-                    },
-                    role_id: {
+                    description: {
                         is_valid: true,
                         text: ''
                     }
@@ -138,114 +103,81 @@
             }
         },
         computed: {
-            authUser() {
-                return this.$store.getters.getUser;
+            addProjectLoadStatus() {
+                return this.$store.getters.getAddProjectLoadStatus;
             },
-            authUserLoadStatus() {
-                return this.$store.getters.getUserLoadStatus;
-            },
-            addUserLoadStatus() {
-                return this.$store.getters.getAddUserLoadStatus;
-            },
-            addUserResult() {
-                return this.$store.getters.getAddUserResult;
-            }
+            addProjectResult() {
+                return this.$store.getters.getAddProjectResult;
+			}
         },
         watch: {
-            addUserLoadStatus: function() {
+            addProjectLoadStatus: function() {
                 let vm = this;
-                if(vm.addUserLoadStatus == 3 && vm.addUserResult.success == 0) {
-                    vm.show_form = true;
-                    vm.HF.showNotification(
-                        'top', 
-                        'center', 
-                        vm.addUserResult.message, 
-                        'danger'
-                    );
-                } else if(vm.addUserLoadStatus == 2 && vm.addUserResult.success == 1) {
-                    vm.show_form = false;
-                    vm.clearUserForm();
+                if(vm.addProjectLoadStatus == 3 && vm.addProjectResult.success == 0) {
+					Message({
+                        title: 'Danger',
+                        message: 'try again!',
+                        type: 'danger'
+                    });
+                } else if(vm.addProjectLoadStatus == 2 && vm.addProjectResult.success == 1) {
+					vm.clearProjectForm();
+					Message({
+                        title: 'Success',
+                        message: 'project added successfully',
+                        type: 'success'
+                    });
+                    this.$router.push('/admin/projects');
                 } 
             }
         },
         mounted() {
 
         },
-        created() {
-            
-        },
+        created() {},
         methods: {
-            addUser(data) {
-                if(this.validateUser(data)) {
-                    this.$store.dispatch('addUser', data);
+            addProject(data) {
+                if(this.validateProject(data)) {
+                    this.$store.dispatch('addProject', data);
                 }
             },
-            addAnother() {
-                this.$store.commit('setAddUserResult', {});
-                this.$store.commit('setAddUserLoadStatus', 0);
-                this.show_form = true;
-            },
-            validateUser(user) {
-                let validUser = true;
+            validateProject(project) {
+                let valid = true;
                 let validations = this.validations;
 
-                if(!user.name) {
-                    validUser = false;
-                    validations.name.is_valid = false;
-                    validations.name.text = "name can not be empty";
+                if(!project.title) {
+                    valid = false;
+                    validations.title.is_valid = false;
+                    validations.title.text = "title can not be empty";
                 }
 
-                if(!user.email) {
-                    validUser = false;
-                    validations.email.is_valid = false;
-                    validations.email.text = "email can not be empty";
-                }
+                if(!project.description) {
+                    valid = false;
+                    validations.description.is_valid = false;
+                    validations.description.text = "description can not be empty";
+				}
 
-                if(!user.password) {
-                    validUser = false;
-                    validations.password.is_valid = false;
-                    validations.password.text = "password can not be empty";
-                }
-
-                if(user.password !== this.cpassword) {
-                    validUser = false;
-                    validations.cpassword.is_valid = false;
-                    validations.cpassword.text = "passwords do not match";
-                }
-
-                if(!user.role_id) {
-                    validUser = false;
-                    validations.role_id.is_valid = false;
-                    validations.role_id.text = "role can not be empty";
-                }
-
-                return validUser;
+                return valid;
             },
-            clearUserForm() {
-                this.user.name = '';
-                this.user.email = '';
-                this.user.password = '';
-                this.cpassword = '';
-                this.user.role_id = '';
+            clearProjectForm() {
+                this.project.title = '';
+				this.project.description = '';
+				this.project.source_code = '';
+				this.project.live_url = '';
 
                 this.validations = {
-                    name: {
+                    source_code: {
+                        is_valid: true,
+                        text: ''
+					},
+					live_url: {
                         is_valid: true,
                         text: ''
                     },
-                    email: {
+                    title: {
                         is_valid: true,
                         text: ''
                     },
-                    cpassword: {
-                        is_valid: true,
-                        text: ''
-                    },
-                    password: {
-                        is_valid: true,
-                        text: ''
-                    },
-                    role_id: {
+                    description: {
                         is_valid: true,
                         text: ''
                     }

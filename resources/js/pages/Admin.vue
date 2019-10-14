@@ -23,6 +23,14 @@
 								Proficiencies
 							</router-link>
 							<router-link class="list-group-item list-group-item-action"
+								:class="{ active: isProjectActive }" 
+								id="list-project-list" 
+								data-toggle="list" 
+								to="/admin/projects" 
+								role="tab" aria-controls="project">
+								Projects
+							</router-link>
+							<router-link class="list-group-item list-group-item-action"
 								:class="{ active: isManageUsersActive }" 
 								id="list-profile-list" 
 								data-toggle="list" 
@@ -62,6 +70,9 @@
 			},
 			isProficiencyActive () {
 				return this.$route.meta.mod === 'proficiencies' ? true : false
+			},
+			isProjectActive () {
+				return this.$route.meta.mod === 'projects' ? true : false
 			}
 		}
     }
