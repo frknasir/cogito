@@ -1,11 +1,11 @@
 <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
         <div class="col-4 pt-1">
-            {{-- <a class="btn btn-sm btn-outline-secondary" href="https://cnvs.io" target="_blank">{{ __('canvas::blog.buttons.learn') }}</a> --}}
+            <a class="btn btn-sm btn-outline-secondary" href="https://cnvs.io" target="_blank">{{ __('canvas::blog.buttons.learn') }}</a>
         </div>
         <div class="col-4 text-center">
-            {{-- <a id="brand" class="text-dark text-decoration-none font-weight-bolder"
-               href="{{ route('home') }}">{{ config('app.name', __('canvas::blog.title')) }}</a> --}}
+            <a id="brand" class="text-dark text-decoration-none font-weight-bolder"
+               href="{{ route('blog.index') }}">{{ config('app.name', __('canvas::blog.title')) }}</a>
         </div>
 
         @auth()

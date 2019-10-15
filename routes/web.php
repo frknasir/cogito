@@ -16,8 +16,8 @@ Route::get( '/', 'AppController@getApp' )->name('home');
 
 
 Route::prefix('blog')->group(function () {
-    Route::get('/', 'BlogController@index')->name('blog.index');
-    Route::middleware('Canvas\Http\Middleware\ViewThrottle')->get('{slug}', 'BlogController@post')->name('blog.post');
-    Route::get('tag/{slug}', 'BlogController@tag')->name('blog.tag');
-    Route::get('topic/{slug}', 'BlogController@topic')->name('blog.topic');
+    Route::get('/', 'BlogController@getPosts')->name('blog.index');
+    Route::middleware('Canvas\Http\Middleware\ViewThrottle')->get('{slug}', 'BlogController@findPostBySlug')->name('blog.post');
+    Route::get('tag/{slug}', 'BlogController@getPostsByTag')->name('blog.tag');
+    Route::get('topic/{slug}', 'BlogController@getPostsByTopic')->name('blog.topic');
 });

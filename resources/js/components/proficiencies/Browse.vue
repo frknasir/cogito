@@ -27,6 +27,11 @@
                 <div class="card-body">
                     <table role="table table-dark" id="proficiencies-table" 
                         class="table">
+						<col width="20">
+						<col width="80">
+						<col width="100">
+						<col width="50">
+						<col width="120">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
@@ -51,10 +56,11 @@
                                 <td class="td-actions">
                                     <router-link 
                                         :to="'/admin/proficiencies/edit/'+proficiency.id" 
-                                        rel="tooltip" class="btn btn-success">
+                                        rel="tooltip" class="btn btn-success btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </router-link>
-                                    <button @click="deleteProficiency(proficiency.id)" type="button" rel="tooltip" class="btn btn-danger">
+                                    <button @click="deleteProficiency(proficiency.id)" type="button" 
+										rel="tooltip" class="btn btn-danger btn-sm">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </td>

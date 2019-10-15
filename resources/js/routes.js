@@ -66,26 +66,10 @@ const router = new VueRouter({
 			children: [
 				{
 					path: '',
-					name: 'Projects',
+					name: 'BrowseProjects',
 					component: Vue.component(
-						'ProjectUsers',
-						require('./components/projects/Browse.vue').default
-					)
-				},
-				{
-					path: 'edit/:projectId',
-					name: 'Edit Project',
-					component: Vue.component(
-						'EditProject',
-						require('./components/projects/Update.vue').default
-					)
-				},
-				{
-					path: 'add',
-					name: 'Add Project',
-					component: Vue.component(
-						'AddProject',
-						require('./components/projects/Add.vue').default
+						'BrowseProject',
+						require('./components/projects/BrowseProject.vue').default
 					)
 				}
 			]

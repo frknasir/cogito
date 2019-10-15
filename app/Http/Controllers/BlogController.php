@@ -7,43 +7,40 @@ use Canvas\Post;
 use Canvas\Topic;
 use Illuminate\View\View;
 use Canvas\Events\PostViewed;
-use Auth;
 
 class BlogController extends Controller
 {
-    /**
+	/**
      * return posts
      */
-    public function getPosts($limit) {
+    public function getPostsTAPI($limit) {
         $posts = Post::published()->orderByDesc('published_at')->paginate($limit);
-
         return $posts;
-    }
-
+	}
+	
     /**
-     * Show the blog homepage with a paginated list of results.
+     * Show the blog index page.
      *
      * @return View
      */
-    public function index(): View
+    public function getPosts(): View
     {
         $data = [
             'posts'  => Post::published()->orderByDesc('published_at')->simplePaginate(10),
             'topics' => Topic::all(['name', 'slug']),
             'tags'   => Tag::all(['name', 'slug']),
-            'user' => Auth::user()
         ];
 
         return view('blog.index', compact('data'));
     }
 
     /**
-     * Show a single post.
+     * Show a post given a slug.
      *
      * @param string $slug
      * @return View
      */
-    public function post(string $slug): View
+    public function findPostBySlug(string $slug): View
     {
         $posts = Post::with('tags', 'topic')->published()->get();
         $post = $posts->firstWhere('slug', $slug);
@@ -56,12 +53,11 @@ class BlogController extends Controller
             });
 
             if ($post->tags->isNotEmpty()) {
-                $related = Post::whereHas('tags', function ($query) use ($post, $next) {
-                    return $query->whereIn('name', $post->tags->pluck('slug'));
-                })
-                    ->where('id', '!=', $post->id)
+                $related = Post::where('id', '!=', $post->id)
                     ->where('id', '!=', optional($next)->id)
-                    ->get();
+                    ->whereHas('tags', function ($query) use ($post, $next) {
+                        return $query->whereIn('name', $post->tags->pluck('slug'));
+                    })->get();
 
                 if ($related->isEmpty()) {
                     $random = $filtered->count() > 1 ? $filtered->random() : null;
@@ -82,7 +78,6 @@ class BlogController extends Controller
                 'next'   => $next,
                 'random' => $random,
                 'topic'  => $post->topic->first() ?? null,
-                'user' => Auth::user()
             ];
 
             event(new PostViewed($post));
@@ -94,24 +89,21 @@ class BlogController extends Controller
     }
 
     /**
-     * Show all posts with a given tag.
+     * Show all posts given a tag.
      *
      * @param string $slug
      * @return View
      */
-    public function tag(string $slug): View
+    public function getPostsByTag(string $slug): View
     {
-        $tag = Tag::with('posts')->where('slug', $slug)->first();
-
-        if ($tag) {
+        if (Tag::where('slug', $slug)->first()) {
             $data = [
-                'tag'    => $tag,
+                'tag'    => Tag::with('posts')->where('slug', $slug)->first(),
                 'tags'   => Tag::all(['name', 'slug']),
                 'topics' => Topic::all(['name', 'slug']),
                 'posts'  => Post::whereHas('tags', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })->published()->orderByDesc('published_at')->simplePaginate(10),
-                'user' => Auth::user()
             ];
 
             return view('blog.index', compact('data'));
@@ -121,24 +113,21 @@ class BlogController extends Controller
     }
 
     /**
-     * Show all posts under a given topic.
+     * Show all posts given a topic.
      *
      * @param string $slug
      * @return View
      */
-    public function topic(string $slug): View
+    public function getPostsByTopic(string $slug): View
     {
-        $topic = Topic::with('posts')->where('slug', $slug)->first();
-
-        if ($topic) {
+        if (Topic::where('slug', $slug)->first()) {
             $data = [
                 'tags'   => Tag::all(['name', 'slug']),
                 'topics' => Topic::all(['name', 'slug']),
-                'topic'  => $topic,
+                'topic'  => Topic::with('posts')->where('slug', $slug)->first(),
                 'posts'  => Post::whereHas('topic', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })->published()->orderByDesc('published_at')->simplePaginate(10),
-                'user' => Auth::user()
             ];
 
             return view('blog.index', compact('data'));

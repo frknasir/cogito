@@ -2,14 +2,15 @@
 
 @section('title', sprintf('%s — %s', config('app.name'), __('canvas::blog.title')))
 
-<!--@push('styles')
+@push('styles')
     @include('blog.partials.styles')
-@endpush-->
+@endpush
 
 @section('content')
     <div class="container">
+        @include('blog.partials.navbar')
 
-        <!--@if($data['topics']->isNotEmpty())
+        @if($data['topics']->isNotEmpty())
             <div class="nav-scroller py-1 mb-2">
                 <nav class="nav d-flex justify-content-between">
                     @foreach($data['topics'] as $topic)
@@ -17,12 +18,12 @@
                     @endforeach
                 </nav>
             </div>
-        @endif-->
+        @endif
 
         @if(count($data['posts']) > 0)
             @foreach($data['posts'] as $post)
                 @if($loop->first)
-                    <div class="jumbotron mt-5 p-4 p-md-5 text-white rounded @if(empty($post->featured_image)) bg-dark @endif"
+                    <div class="jumbotron p-4 p-md-5 text-white rounded @if(empty($post->featured_image)) bg-dark @endif"
                          @if(!empty($post->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.85),rgba(0, 0, 0, 0.85)),url({{ $post->featured_image }}); background-size: cover" @endif>
                         <div class="col-md-8 px-0">
                             <h1 class="display-4 font-italic"><a href="{{ route('blog.post', $post->slug) }}"

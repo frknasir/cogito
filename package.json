@@ -1,4 +1,6 @@
 {
+	"name": "cogito",
+  	"version": "0.5.0",
     "private": true,
     "scripts": {
         "dev": "npm run development",

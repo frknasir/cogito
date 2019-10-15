@@ -141,34 +141,34 @@
 									view all
 								</router-link>
 							</h1>
-							<div class="d-flex border-top py-3 align-items-center" v-for="(post, index) in posts" :key="index">
+							<div class="border-top py-3" v-for="(project, index) in projects" :key="index">
 								<div class="row">
 									<div class="col">
 										<p class="mb-1">
-											<a :href="'/blog/' + post.slug" class="font-weight-bold lead">{{ post.title }}</a>
+											<a class="font-weight-bold lead">{{ project.title }}</a>
 										</p>
-										<p class="mb-1" v-if="post.summary">{{ post.summary }}</p>
 										<p class="text-muted mb-0">
-											<span v-if="post.published_at <= moment(new Date()).tz('Africa/Lagos').format().slice(0, 19).replace('T', ' ')">
-												{{ moment(post.published_at).format('LLL') }}
+											<span>
+												{{ moment(project.created_at).format('LLL') }}
 											</span>
 										</p>
 									</div>
 									<div class="col-6">
 										<p class="mb-1 text-muted">
-											this is me and you. this is me and you.
-											this is me and you. this is me and you.
+											{{ project.description }}
 										</p>
 									</div>
 									<div class="col">
-										<button type="button" class="btn btn-github btn-block">
+										<a target="_blank" v-if="project.source_code" :href="project.source_code" 
+											class="btn btn-github btn-block">
 											<i class="fa fa-github"></i>
 											source
-										</button>
-										<button type="button" class="btn btn-primary btn-neutral btn-block">
+										</a>
+										<a target="_blank" v-if="project.live_url" :href="project.live_url" 
+											class="btn btn-primary btn-neutral btn-block">
 											<i class="fa fa-eye"></i>
 											view
-										</button>
+										</a>
 									</div>
 								</div>
                             </div>
@@ -223,11 +223,14 @@ export default {
 	},
 	created() {
 		this.$store.dispatch("loadConfig");
-		this.$store.dispatch("getPosts", {
+		this.$store.dispatch("loadPosts", {
 			limit: 3,
 			url: null
 		});
 		this.$store.dispatch("loadProficiencyTypes");
+		this.$store.dispatch("loadProjects", {
+			url: null
+		});
 	},
 	computed: {
 		config() {
@@ -235,15 +238,6 @@ export default {
 		},
 		configLoadStatus() {
 			return this.$store.getters.getConfigLoadStatus;
-		},
-		members() {
-			return this.$store.getters.getMembers;
-		},
-		membersLoadStatus() {
-			return this.$store.getters.getMembersLoadStatus;
-		},
-		memberPagination() {
-			return this.$store.getters.getMemberPagination;
 		},
 		posts() {
 			return this.$store.getters.getPosts;
@@ -266,6 +260,12 @@ export default {
 		},
 		proficiencyTypesLoadStatus () {
 			return this.$store.getters.getProficiencyTypesLoadStatus;
+		},
+		projects () {
+			return this.$store.getters.getProjects;
+		},
+		projectsLoadStatus () {
+			return this.$store.getters.getProjectsLoadStatus;
 		}
 	},
 	methods: {

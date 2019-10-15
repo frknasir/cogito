@@ -47,6 +47,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
 	Route::group(['prefix' => 'project'], function () {
 		Route::post('/', 'ProjectController@store');
 		Route::put('/', 'ProjectController@update');
+		Route::delete('/', 'ProjectController@destroy');
 	});
 	/**
 	 * EndProject Routes
@@ -104,7 +105,7 @@ Route::group(['prefix'=> 'v1'], function() {
      */
     Route::get(
         '/posts/limit/{limit}', 
-        'BlogController@getPosts'
+        'BlogController@getPostsTAPI'
     );
 
     /**
@@ -118,13 +119,6 @@ Route::group(['prefix'=> 'v1'], function() {
             ]);
             
             //return (new ContactMail($request))->render();
-        });
-        Route::post('/apply-for-membership', function(Request $request) {
-            Mail::send(new ApplyForMembershipMail($request));
-            return response()->json([
-                'success' => 1
-            ]);
-            //return (new ApplyForMembershipMail($request))->render();
         });
     });
     /**

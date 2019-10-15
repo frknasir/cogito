@@ -14,7 +14,7 @@ export const post = {
         postsLoadStatus: 0
     },
     actions: {
-        getPosts({ commit }, data) {
+        loadPosts({ commit }, data) {
             commit('setPostsLoadStatus', 1);
 
             PostAPI.getPosts(

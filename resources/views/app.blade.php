@@ -16,7 +16,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/nucleo-icons.css') }}">
 
     <script type='text/javascript'>
         window.Laravel = @php echo json_encode([

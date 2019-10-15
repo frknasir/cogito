@@ -27,6 +27,10 @@
                 <div class="card-body">
                     <table role="table table-dark" id="projects-table" 
                         class="table">
+						<col width="20">
+						<col width="80">
+						<col width="130">
+						<col width="80">
                         <thead>
                             <tr>
                                 <th scope="col">Id</th>
@@ -47,25 +51,14 @@
 								<td class="td-actions">
                                     <router-link 
                                         :to="'/admin/projects/edit/'+project.id" 
-                                        rel="tooltip" class="btn btn-success">
+                                        rel="tooltip" class="btn btn-success btn-sm">
                                         <i class="fa fa-edit"></i>
                                     </router-link>
-                                    <button @click="deleteProject(project.id)" type="button" rel="tooltip" class="btn btn-danger">
+                                    <button @click="deleteProject(project.id)" type="button" 
+										rel="tooltip" class="btn btn-danger btn-sm">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </td>
-                                <!--<td class="td-actions">
-                                    <a target="_blank" v-if="project.source_code" :href="project.source_code" 
-										type="button" rel="tooltip" class="btn btn-github">
-                                        <i class="fa fa-github"></i>
-										Source
-                                    </a>
-									<a target="_blank" v-if="project.live_url" :href="project.live_url" 
-										type="button" rel="tooltip" class="btn btn-default">
-                                        <i class="fa fa-preview"></i>
-										Preview
-                                    </a>
-                                </td>-->
                             </tr>
                         </tbody>
                     </table>

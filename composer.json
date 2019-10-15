@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "frknasir/cogito",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "An open source personal website.",
     "keywords": [
         "framework",
         "laravel"
@@ -9,7 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
-        "cnvs/canvas": "^4.2",
+        "cnvs/canvas": "^4.2.9",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",

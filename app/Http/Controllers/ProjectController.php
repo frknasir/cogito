@@ -52,9 +52,9 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
-		$project = Project::findOrFail($requst->input('id'));
+		$project = Project::findOrFail($id);
 		
 		return new ProjectResource($project);
     }
@@ -68,7 +68,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $project = Project::findOrFail($requst->input('id'));
+        $project = Project::findOrFail($request->input('id'));
 		
 		$project->title = $request->input('title');
 		$project->description = $request->input('description');

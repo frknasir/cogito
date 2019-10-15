@@ -2,12 +2,14 @@
 
 @section('title', $data['post']->title)
 
-<!--@push('styles')
+@push('styles')
     @include('blog.partials.styles')
-@endpush-->
+@endpush
 
 @push('meta')
+
     <meta name="description" content="{{ $data['meta']['meta_description'] }}">
+    <meta property="og:type" content="article">
     <meta name="og:title" content="{{ $data['meta']['og_title'] }}">
     <meta name="og:description" content="{{ $data['meta']['og_description'] }}">
     <meta name="twitter:card" content="summary">
@@ -41,6 +43,7 @@
 
 @section('content')
     <div class="container">
+        @include('blog.partials.navbar')
 
         <div class="row justify-content-md-center">
             <div class="col col-lg-8">
@@ -76,41 +79,9 @@
                         @endforeach
                     </h5>
                 @endif
-
-                <hr>
-
-                {{-- DISQUS SCRIPT --}}
-
-                <div id="disqus_thread"></div>
-                <script>
-
-                /**
-                *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-                *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-
-                var disqus_config = function () {
-                this.page.url = '{{ Request::url() }}';  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = '{{ $data['post']->id }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-                };
-
-                (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://spoorafrica.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-                })();
-                </script>
-                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-                {{-- DISQUS SCRIPT END--}}
-
             </div>
-            
         </div>
-        
     </div>
-
-    
 
     <div class="read-more mt-5 container-fluid">
         <div class="row">
@@ -118,26 +89,26 @@
                 <div class="col-lg bg-light text-center px-lg-5 py-5"
                      @if(!empty($data['next']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['next']->featured_image }}); background-size: cover" @endif>
                     <a href="{{ route('blog.post', $data['next']->slug) }}"
-                            class="btn btn-sm @if(!empty($data['next']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-secondary text-uppercase font-weight-bold mt-3">
+                       class="btn btn-sm @if(!empty($data['next']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">
                         {{ __('canvas::blog.buttons.next') }}
                     </a>
                     <h2 class="font-weight-bold serif my-3 @if(!empty($data['next']->featured_image)) text-white @endif">
                         <a href="{{ route('blog.post', $data['next']->slug) }}"
                            class="title">{{ $data['next']->title }}</a></h2>
-                    <p class="serif body @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ str_limit(strip_tags($data['next']->body), 140) }}</p>
+                    <p class="serif body @if(!empty($data['next']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['next']->body), 140) }}</p>
                 </div>
             @endif
             @if($data['random'])
                 <div class="col-lg bg-light text-center px-lg-5 py-5"
                      @if(!empty($data['random']->featured_image)) style="background: linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.8)),url({{ $data['random']->featured_image }}); background-size: cover" @endif>
                     <a href="{{ route('blog.post', $data['random']->slug) }}"
-                            class="btn btn-sm @if(!empty($data['random']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-secondary text-uppercase font-weight-bold mt-3">
+                       class="btn btn-sm @if(!empty($data['random']->featured_image)) btn-outline-light @else btn-outline-secondary @endif text-uppercase font-weight-bold mt-3">
                         {{ __('canvas::blog.buttons.enjoy') }}
                     </a>
                     <h2 class="font-weight-bold serif my-3 @if(!empty($data['random']->featured_image)) text-white @endif">
                         <a href="{{ route('blog.post', $data['random']->slug) }}"
                            class="title">{{ $data['random']->title }}</a></h2>
-                    <p class="serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ str_limit(strip_tags($data['random']->body), 140) }}</p>
+                    <p class="serif body @if(!empty($data['random']->featured_image)) text-white-50 @else text-muted @endif">{{ Illuminate\Support\Str::limit(strip_tags($data['random']->body), 140) }}</p>
                 </div>
             @endif
         </div>
