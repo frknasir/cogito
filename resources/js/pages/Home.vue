@@ -56,9 +56,12 @@
 					<div class="col-md-6 ml-auto mr-auto">
 						<div class="card card-coin card-plain">
 							<div class="card-header">
-								<img
+								<img v-if="this.config.site_logo_url"
 									:src="'/storage/' + this.config.site_logo_url"
-									class="img-center img-fluid rounded-circle"/>
+									class="img-center img-fluid rounded-circle" />
+								<img v-else
+									src="/img/placeholder.jpg"
+									class="img-center img-fluid rounded-circle" />
 								<h4 class="title">Artisanship</h4>
 							</div>
 							<div class="card-body">
@@ -189,7 +192,7 @@
 									Quote of The Week
 								</small>
 							</h1>
-							<div class="card">
+							<div class="card card-plain">
 								<div class="card-header">
 									Quote
 								</div>

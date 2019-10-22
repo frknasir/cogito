@@ -141,7 +141,9 @@
     </div>
 </template>
 <script>
-    import { HELPERS } from '../helpers.js';
+	import { HELPERS } from '../helpers.js';
+	import { Message } from 'element-ui';
+
     export default {
         created() {
             this.$store.dispatch('getAuthUser');
@@ -256,13 +258,13 @@
             },
             updateConfigLoadStatus: function(val) {
                 if(val == 2 && this.updateConfigResponse.success == 1) {
-                    this.$message({
+                    Message({
                         title: 'Success',
                         message: 'updated successfully!',
                         type: 'success'
                     });
                 } else if(val == 3 || this.updateConfigResponse.success == 0) {
-                    this.$message({
+                    Message({
                         title: 'Danger',
                         message: 'try again!',
                         type: 'danger'
@@ -275,7 +277,7 @@
 				this.logo = event.target.files[0];
 
 				if(this.logo.size > 2000000) {
-					this.$message({
+					Message({
                         title: 'Warning',
                         message: 'image file too large',
                         type: 'warning'
