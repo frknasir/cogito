@@ -227,7 +227,7 @@ export default {
 	created() {
 		this.$store.dispatch("loadConfig");
 		this.$store.dispatch("loadPosts", {
-			limit: 3,
+			limit: 15,
 			url: null
 		});
 		this.$store.dispatch("loadProficiencyTypes");
