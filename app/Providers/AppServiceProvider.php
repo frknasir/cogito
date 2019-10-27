@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
             'localGovernment' => 'App\LocalGovernment'
 		]);
 		
-		if(env('REDIRECT_HTTPS')) {
+		if(env('APP_REDIRECT_HTTPS')) {
             \URL::forceScheme('https');
         }
     }
