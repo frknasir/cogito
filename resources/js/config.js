@@ -10,8 +10,8 @@ switch( process.env.NODE_ENV ) {
         url = 'http://127.0.0.1:8000';
     break;
     case 'production':
-        api_url = process.env.APP_URL + '/api/v1';
-        url = process.env.APP_URL;
+        api_url = 'https://faruknasir.azurewebsites.net/api/v1';
+        url = 'https://faruknasir.azurewebsites.net';
     break;
 }
 
