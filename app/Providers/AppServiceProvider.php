@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             'state' => 'App\State',
             'localGovernment' => 'App\LocalGovernment'
-        ]);
+		]);
+		
+		if(env('REDIRECT_HTTPS')) {
+            \URL::forceScheme('https');
+        }
     }
 }
