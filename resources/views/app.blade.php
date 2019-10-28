@@ -49,7 +49,6 @@
 
 </head>
 <body class="profile-page">
-	<h1>{{ public_path() }}</h1>
     <div id="app">
         <router-view></router-view>       
     </div>

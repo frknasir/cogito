@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -26,11 +27,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
-        Relation::morphMap([
-            'state' => 'App\State',
-            'localGovernment' => 'App\LocalGovernment'
-		]);
+	public function boot(UrlGenerator $url) 
+	{
+		if(env('REDIRECT_HTTPS')) {
+			$url->forceSchema('https');
+		}
     }
 }
