@@ -14,11 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-		if (env('HOSTING') === 'azure') {
-			$this->app->bind('path.public', function() {
-				return env('AZURE_PUBLIC_PATH');
-			});
-		}
+		//if (env('HOSTING') === 'azure') {
+		//	$this->app->bind('path.public', function() {
+		//		return env('AZURE_PUBLIC_PATH');
+		//	});
+		//}
     }
 
     /**
