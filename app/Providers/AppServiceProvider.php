@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -29,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
 	public function boot() 
 	{
-		if(env('REDIRECT_HTTPS')) {
-			URL::forceScheme('https');
-		}
+		
     }
 }

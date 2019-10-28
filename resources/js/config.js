@@ -15,8 +15,6 @@ switch( process.env.NODE_ENV ) {
     break;
 }
 
-console.log(api_url)
-
 export const CONFIG = {
     API_URL: api_url,
     URL: url

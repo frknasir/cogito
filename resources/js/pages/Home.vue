@@ -57,10 +57,10 @@
 						<div class="card card-coin card-plain">
 							<div class="card-header">
 								<img v-if="this.config.site_logo_url"
-									:src="'/storage/' + this.config.site_logo_url"
+									:src="process.env.MIX_ASSET_URL || '' + '/storage/' + this.config.site_logo_url"
 									class="img-center img-fluid rounded-circle" />
 								<img v-else
-									src="/img/placeholder.jpg"
+									:src="process.env.MIX_ASSET_URL || '' + '/img/placeholder.jpg'"
 									class="img-center img-fluid rounded-circle" />
 								<h4 class="title">Artisanship</h4>
 							</div>
@@ -221,7 +221,8 @@ export default {
 			newsletterEmail: "",
 			message: "",
 			featured_posts: null,
-			moment: moment
+			moment: moment,
+			process: process
 		};
 	},
 	created() {
