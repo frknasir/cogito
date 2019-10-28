@@ -14,9 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('path.public', function() {
-            return base_path().DIRECTORY_SEPARATOR.'public_html';
-        });
+		if (env('HOSTING') === 'azure') {
+			$this->app->bind('path.public', function() {
+				return env('AZURE_PUBLIC_PATH');
+			});
+		}
     }
 
     /**
