@@ -39,7 +39,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <script type='text/javascript'>
         window.Laravel = @php echo json_encode([
@@ -49,10 +49,11 @@
 
 </head>
 <body class="profile-page">
+	<h1>{{ public_path() }}</h1>
     <div id="app">
         <router-view></router-view>       
     </div>
     <!-- Scripts -->
-    <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

@@ -249,14 +249,18 @@ export default {
 			return this.$store.getters.getPostsLoadStatus;
 		},
 		textOnBack() {
-			let splitted = this.config.site_title.split(' ');
-			let tob = '';
+			if (this.config.site_title) {
+				let splitted = this.config.site_title.split(' ');
+				let tob = '';
 
-			splitted.forEach(split => {
-				tob += split.charAt(0).toUpperCase()
-			});
+				splitted.forEach(split => {
+					tob += split.charAt(0).toUpperCase()
+				});
 
-			return tob;
+				return tob;
+			}
+			
+			return "CG";
 		},
 		proficiencyTypes () {
 			return this.$store.getters.getProficiencyTypes;

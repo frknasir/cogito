@@ -6,12 +6,12 @@ var url = '';
 
 switch( process.env.NODE_ENV ) {
     case 'development':
-        api_url = 'http://127.0.0.1:8000/api/v1';
-        url = 'http://127.0.0.1:8000';
+        api_url = process.env.MIX_APP_URL + '/api/v1' || 'http://127.0.0.1:8000/api/v1';
+        url = process.env.MIX_APP_URL || 'http://127.0.0.1:8000';
     break;
     case 'production':
-        api_url = 'https://faruknasir.azurewebsites.net/api/v1';
-        url = 'https://faruknasir.azurewebsites.net';
+        api_url = process.env.MIX_APP_URL + '/api/v1';
+        url = process.env.MIX_APP_URL;
     break;
 }
 
