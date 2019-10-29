@@ -18,7 +18,6 @@ Route::get('register', function () {
 	abort(403, 'You are not supposed to be here. Legal action awaits any funny activity.');
 });
 
-
 Route::prefix('blog')->group(function () {
     Route::get('/', 'BlogController@getPosts')->name('blog.index');
     Route::middleware('Canvas\Http\Middleware\ViewThrottle')->get('{slug}', 'BlogController@findPostBySlug')->name('blog.post');
